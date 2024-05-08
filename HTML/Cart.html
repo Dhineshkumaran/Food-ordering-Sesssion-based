@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+        <link rel="stylesheet" href="Cart.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+        <!--Bootstrap css-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-nvAa0jO3t5VST7w5F5e/Ky5m5r5G+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/822b82dc31.js" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #efeae3;">
+    <nav class="navbar navbar-expand-sm text-center">
+        <div class="container-fluid">
+            <h2 style="font-family: Georgia, 'Times New Roman', Times, serif;">Cart</h2>
+        </div>
+    </nav>
+    <div class="container mt-5 mb-5 pb-5" id="food_container">
+        <div style="text-align: right; align-items: end; justify-content: end;">
+            <div class="pb-3">
+                <button class="btn btn-primary" id="nopay">Order</button>
+                <button class="btn btn-primary" id="onpay">Pay and Order</button>
+            </div>
+        </div>
+        <!--Dynamically added contents-->
+        <script src="Cart.js"></script>
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    </div>
+</body>
+</html>

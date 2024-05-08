@@ -1,0 +1,79 @@
+.navbar{
+  background-color: orange;
+}
+.navbar .nav-link{
+  color:#ffffff !important;
+}
+.navbar-brand{
+  color:#ffffff;
+}
+.navbar #myMenu .custom-nav .nav-item a{
+  color: #ffffff;
+  text-align: right;
+}
+
+.fa-caret-down{
+  color: white;
+}
+
+.navbar-nav{
+  text-align: right;
+}
+
+.navbar #myMenu .custom-nav .nav-item a:hover{
+  color: #d8d6d8de;
+}
+
+.about{
+  background-color: rgba(255, 255, 255, 0.5);
+  height: auto;
+  width: auto;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.contact{
+  background-color: rgb(72, 72, 72);
+  height: auto;
+  width: 100%;
+  color: white;
+  padding: 20px;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+.sidebar {
+      background-color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 1030;
+      padding: 20px;
+      width: 300px;
+      box-shadow: -4px 0 5px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  .dropdown-toggle, .nav-link {
+      color: orange !important;
+  }
+
+  .nav-link:hover {
+      color: white !important;
+      background-color: orange !important;
+  }
+
+.btn-close, text-reset{
+  color: #ffffff;
+  background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .scrolling-container {
+    overflow-x: auto;
+  }
+}
