@@ -1,5 +1,4 @@
 window.onload = async () => {
-    let payorderbtn = document.getElementById('onpay');
     let orderbtn = document.getElementById('nopay');
     try {
     let cartItemsDiv = document.getElementById('food_container');
@@ -75,7 +74,7 @@ async function sendOrderUpdateRequest() {
 }
 
 //Initiating payment
-payorderbtn.addEventListener('click', async () => {
+orderbtn.addEventListener('click', async () => {
     try {
         let total_cost = 0;
         let chips = document.querySelectorAll('.chips');

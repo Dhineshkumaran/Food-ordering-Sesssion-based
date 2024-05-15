@@ -37,8 +37,6 @@ async function main() {
 
         app.use('/', foodOrderRoutes);
 
-        app.use('/', foodOrderRoutes);
-
         app.use('/',addtocartRoutes);
 
         app.use('/',adminloginRoutes);
