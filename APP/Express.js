@@ -37,33 +37,33 @@ async function main() {
 
         app.use('/', foodOrderRoutes);
 
-        app.use('/home', foodOrderRoutes);
+        app.use('/', foodOrderRoutes);
 
-        app.use('/add-to-cart',addtocartRoutes);
+        app.use('/',addtocartRoutes);
 
-        app.use('/adminlogin',adminloginRoutes);
+        app.use('/',adminloginRoutes);
 
-        app.use('/cart',cartRoutes);
+        app.use('/',cartRoutes);
 
-        app.use('/getorder', getOrderRoutes);
+        app.use('/', getOrderRoutes);
 
-        app.use('/order',orderRoutes);
+        app.use('/',orderRoutes);
 
-        app.use('/displayorder',displayOrderRoutes);
+        app.use('/',displayOrderRoutes);
 
-        app.use('/signup',signupRoutes);
+        app.use('/',signupRoutes);
 
-        app.use('/updateorder',updateOrderRoutes);
+        app.use('/',updateOrderRoutes);
 
-        app.use('/userlogin',userloginRoutes);
+        app.use('/',userloginRoutes);
 
-        app.use('/getcartitems',getcartitemRoutes);
+        app.use('/',getcartitemRoutes);
 
-        app.use('/getfooditems',getfooditemsRoutes);
+        app.use('/',getfooditemsRoutes);
 
-        app.use('/create-order',paymentRoutes);
+        app.use('/',paymentRoutes);
 
-        app.use('/webhook',webhookRoutes);
+        app.use('/',webhookRoutes);
 
         app.use('/', authRouter);
 

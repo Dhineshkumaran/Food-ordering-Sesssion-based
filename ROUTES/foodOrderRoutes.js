@@ -2,7 +2,7 @@ const express = require('express');
 const foodOrderController = require('../CONTROLLER/foodOrderController');
 
 const router = express.Router();
-router.route('/')
+router.route('/home')
     .get(foodOrderController.foodOrder)
     .post(foodOrderController.addToCart)
 
