@@ -102,7 +102,7 @@ window.onload = async () => {
                 btn.disabled = true;
                 const id = btn.getAttribute('data-id');
                 const response = await fetch(`/updateorder?id=${id}`, {
-                    method: "POST",
+                    method: "PATCH",
                     headers: {
                         'Content-Type': 'application/json'
                     },

@@ -19,6 +19,9 @@ const paymentRoutes = require('../ROUTES/paymentRoutes');
 const webhookRoutes = require('../ROUTES/webhookRoutes');
 const authRouter = require('../ROUTES/authRouter');
 
+const CustomError = require('../UTILS/customError');
+const globalErrorHandler = require('../CONTROLLER/globalErrorHandler');
+
 const app = express();
 app.use(express.static('CSS'));
 app.use(express.static('SCRIPTS'));
@@ -34,41 +37,47 @@ async function main() {
     try {
         await connect();
         console.log('Connected to the MongoDB server');
-
-        app.use('/', foodOrderRoutes);
-
-        app.use('/',addtocartRoutes);
-
-        app.use('/',adminloginRoutes);
-
-        app.use('/',cartRoutes);
-
-        app.use('/', getOrderRoutes);
-
-        app.use('/',orderRoutes);
-
-        app.use('/',displayOrderRoutes);
-
-        app.use('/',signupRoutes);
-
-        app.use('/',updateOrderRoutes);
-
-        app.use('/',userloginRoutes);
-
-        app.use('/',getcartitemRoutes);
-
-        app.use('/',getfooditemsRoutes);
-
-        app.use('/',paymentRoutes);
-
-        app.use('/',webhookRoutes);
-
-        app.use('/', authRouter);
-
     } catch (error) {
         console.error('Error:', error);
     }
 }
+
+app.use('/home', foodOrderRoutes);
+
+app.use('/add-to-cart',addtocartRoutes);
+
+app.use('/adminlogin',adminloginRoutes);
+
+app.use('/cart',cartRoutes);
+
+app.use('/getorder', getOrderRoutes);
+
+app.use('/order',orderRoutes);
+
+app.use('/order',displayOrderRoutes);
+
+app.use('/signup',signupRoutes);
+
+app.use('/updateorder',updateOrderRoutes);
+
+app.use('/userlogin',userloginRoutes);
+
+app.use('/getcartitems',getcartitemRoutes);
+
+app.use('/getfooditems',getfooditemsRoutes);
+
+app.use('/create-order',paymentRoutes);
+
+app.use('/webhook',webhookRoutes);
+
+app.use('/auth', authRouter);
+
+app.all('*', (req, res, next)=>{
+    const err = new CustomError(`Can't find the ${req.originalUrl} on the server!`, 404);
+    next(err);
+})
+
+app.use(globalErrorHandler);
 
 module.exports = app;
 

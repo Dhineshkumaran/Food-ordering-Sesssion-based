@@ -1,5 +1,7 @@
-exports.getorder = async (req,res)=>{
-    try {
+const asyncErrorHandler = require('../UTILS/asyncErrorHandler');
+
+exports.getorder = asyncErrorHandler(
+    async (req,res)=>{
         const Order = require('../SCHEMAS/ordersSchema');
         if(req.query.id) {
             const id = req.query.id;
@@ -9,8 +11,5 @@ exports.getorder = async (req,res)=>{
             let result = await Order.find();
             res.status(200).json(result);
         }
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send("Error displaying data.");
     }
-}
+);

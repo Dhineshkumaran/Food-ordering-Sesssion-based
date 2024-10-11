@@ -1,26 +1,39 @@
-exports.updateOrder = async (req, res) => {
-    try {
+const asyncErrorHandler = require('../UTILS/asyncErrorHandler');
+const customError = require('../UTILS/customError');
+const Order = require('../SCHEMAS/ordersSchema');
+
+exports.updateOrder = asyncErrorHandler(
+    async (req, res, next) => {
         const Order = require('../SCHEMAS/ordersSchema');
-        if (req.query.id) {
-            const id = req.query.id;
-            await Order.updateOne({ orderNo: id }, { $set: { status: "PAID" } });
+        const id = req.query.id;
+        const response = await Order.updateOne({ orderNo: id }, { $set: { status: "PAID" } });
+        if(response.matchedCount != 1) {
+            const err = new customError(`Order with id:${req.query.id} not found.`, 404);
+            next(err);
         } else {
-            const data = req.body;
-            console.log(data);
-            const highestOrder = await Order.findOne().sort({ orderNo: -1 });
-            const orderNo = highestOrder ? highestOrder.orderNo + 1 : 1;
-
-            const newOrder = new Order({
-                "orderNo": orderNo,
-                "foodItems": data,
-                "status": "NOT PAID"
-            });
-            await newOrder.save();
-
-            res.json({ success: true, data });
+            res.status(200).json({ success: true, message:"Order updated successfully."});
         }
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send('Internal Server Error');
     }
-};     
+);     
+
+exports.createOrder = asyncErrorHandler(
+    async (req, res, next) => {
+        const data = req.body;
+        console.log(data);
+        if (!data || data.length === 0) {
+            const err = new customError("Order data is required", 400);
+            return next(err);
+        }
+        const highestOrder = await Order.findOne().sort({ orderNo: -1 });
+        const orderNo = highestOrder ? highestOrder.orderNo + 1 : 1;
+
+        const newOrder = new Order({
+            "orderNo": orderNo,
+            "foodItems": data,
+            "status": "NOT PAID"
+        });
+        await newOrder.save();
+
+        res.status(201).json({ success: true, message:"Order created successfully." });
+    }
+)

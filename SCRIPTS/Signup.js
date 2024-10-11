@@ -33,8 +33,27 @@ form.addEventListener('submit', async function (event) {
         alert("Passwords do not match. Please try again.");
         return;
     }  
+
+    try {
+        let signupForm = new FormData(form);
+        const response = await fetch('/signup',{
+            method: 'POST',
+            body: {
+                data: signupForm
+            }
+        })
     
-    form.submit();
-    console.log("Signup successful!");
+        if(!response.ok) {
+            throw new Error("An error occurred while during signup.");
+        }
+
+        const data = await response.json();
+        const token = data.token;
+        localStorage.setItem('token',token);
+        window.location.href = "/login";
+        console.log("Signup successful!");
+    } catch (error) {
+        console.log(error);
+    }
     
 });

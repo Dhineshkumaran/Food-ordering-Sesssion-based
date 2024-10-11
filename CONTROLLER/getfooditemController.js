@@ -1,10 +1,9 @@
-exports.getfooditems = async (req,res)=>{
-    try {
+const asyncErrorHandler = require('../UTILS/asyncErrorHandler');
+
+exports.getfooditems = asyncErrorHandler(
+    async (req,res)=>{
         const FoodItem = require('../SCHEMAS/foodItemsSchema');
         const items = await FoodItem.find({});
         res.status(200).send(items);
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).send("Error Fetching food Items");
-    }
-}
+    }    
+);

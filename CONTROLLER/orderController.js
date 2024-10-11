@@ -1,5 +1,7 @@
-try {
-    exports.getOrder = async (req,res)=>{
+const asyncErrorHandler = require('../UTILS/asyncErrorHandler');
+
+exports.getOrder = asyncErrorHandler(
+    async (req,res)=>{
         const path = require('path');
         const Order = require('../SCHEMAS/ordersSchema');
         if(req.query.id) {
@@ -13,7 +15,4 @@ try {
             res.status(200).sendFile(fp);
         }
     }
-} catch (error) {
-    console.log('Error:',error);
-    res.status(500).send("Error Fetching Orders");
-}
+);
