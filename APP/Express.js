@@ -69,11 +69,11 @@ app.use('/order',orderRoutes);
 
 app.use('/order',displayOrderRoutes);
 
-app.use('/signup',signupRoutes);
+app.use('/userlogin',userloginRoutes);
 
 app.use('/updateorder',updateOrderRoutes);
 
-app.use('/',userloginRoutes);
+app.use('/',signupRoutes);
 
 app.use('/getcartitems',getcartitemRoutes);
 

@@ -26,11 +26,11 @@ exports.signup = asyncErrorHandler(
             console.log(token);
         }
 
+        var currentDate = new Date();
+
         res.cookie('jwt', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            maxAge: process.env.LOGIN_EXPIRES * 1000,
-            sameSite: 'none',
+            expires: new Date(currentDate.getTime() + (30 * 24 * 60 * 60 * 1000)),
             path: '/'
         });
 

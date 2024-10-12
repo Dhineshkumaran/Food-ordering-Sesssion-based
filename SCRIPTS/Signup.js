@@ -62,7 +62,7 @@ form.addEventListener('submit', async function (event) {
         localStorage.setItem('token',token);
         alert("Signup successful! You will be redirected to the login page shortly.");
         setTimeout(()=>{
-            window.location.href = "http://localhost:3000/";
+            window.location.href = "http://localhost:3000/userlogin";
         },10000);
         console.log("Signup successful!");
     } catch (error) {
