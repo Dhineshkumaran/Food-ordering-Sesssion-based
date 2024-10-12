@@ -1,11 +1,13 @@
 window.onload = () => {
-  loadFoodItems();
+    loadFoodItems();
 };
 
 async function loadFoodItems() {
   let dynamic = document.getElementById('dynamic');
   try {
-    const response = await fetch('/getfooditems');
+    const response = await fetch('/getfooditems',{
+      credentials: 'include'
+    });
     const items = await response.json();
     let mainreplaceHtml = '';
     items.forEach((item, index) => {
@@ -70,7 +72,8 @@ function attachEventListeners() {
       try {
         const response = await fetch('/add-to-cart', {
           method: 'POST',
-          headers: {
+          credentials: 'include',
+          headers: { 
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(itemsToAdd)
@@ -85,7 +88,6 @@ function attachEventListeners() {
       catch (error) {
         console.log('Error: ', error);
       }
-
     });
   });
 }

@@ -28,6 +28,7 @@ exports.createOrder = asyncErrorHandler(
         const orderNo = highestOrder ? highestOrder.orderNo + 1 : 1;
 
         const newOrder = new Order({
+            "_id": req.user.id,
             "orderNo": orderNo,
             "foodItems": data,
             "status": "NOT PAID"

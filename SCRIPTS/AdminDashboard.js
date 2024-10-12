@@ -1,6 +1,8 @@
 window.onload = async () => {
     try {
-        const response = await fetch('/getorder');
+        const response = await fetch('/getorder',{
+            credentials: 'include'
+        });
         if (!response.ok) {
             throw new Error('Failed to fetch orders');
         }
@@ -29,7 +31,9 @@ window.onload = async () => {
             btn.addEventListener('click', async ()=>{
                 let id = btn.getAttribute('data-id');
                 console.log(id);
-                const response = await fetch(`/getorder?id=${id}`);
+                const response = await fetch(`/getorder?id=${id}`,{
+                    credentials: 'include'
+                });
                 if(!response.ok) {
                     throw new Error('Failed to fetch order');
                 }
@@ -103,6 +107,7 @@ window.onload = async () => {
                 const id = btn.getAttribute('data-id');
                 const response = await fetch(`/updateorder?id=${id}`, {
                     method: "PATCH",
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json'
                     },

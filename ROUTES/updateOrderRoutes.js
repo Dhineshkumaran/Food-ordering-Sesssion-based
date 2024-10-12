@@ -1,9 +1,11 @@
 const express = require('express');
 const updateOrderController = require('../CONTROLLER/updateOrderController');
+const verifyToken = require('../UTILS/verifyToken');
+const authorizeRoles = require('../UTILS/authorizeRoles');
 
 const router = express.Router();
 router.route('/')
-    .patch(updateOrderController.updateOrder)
-    .post(updateOrderController.createOrder)
+    .patch(verifyToken, authorizeRoles('admin'), updateOrderController.updateOrder)
+    .post(verifyToken, authorizeRoles('user'), updateOrderController.createOrder)
 
 module.exports = router;

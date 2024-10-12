@@ -35,12 +35,22 @@ form.addEventListener('submit', async function (event) {
     }  
 
     try {
-        let signupForm = new FormData(form);
-        const response = await fetch('/signup',{
+        const formData = {
+            firstname: firstname,
+            lastname: lastname,
+            username: username,
+            password: password,
+            confirmPassword: confirmPassword,
+            role: 'user'
+        };
+
+        const response = await fetch('/auth/signup',{
             method: 'POST',
-            body: {
-                data: signupForm
-            }
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json' // Ensure you set this header
+            },
+            body: JSON.stringify(formData)
         })
     
         if(!response.ok) {
@@ -49,8 +59,12 @@ form.addEventListener('submit', async function (event) {
 
         const data = await response.json();
         const token = data.token;
+        console.log(token);
         localStorage.setItem('token',token);
-        window.location.href = "/login";
+        alert("Signup successful! You will be redirected to the login page shortly.");
+        setTimeout(()=>{
+            window.location.href = "http://localhost:3000/userlogin";
+        },10000);
         console.log("Signup successful!");
     } catch (error) {
         console.log(error);

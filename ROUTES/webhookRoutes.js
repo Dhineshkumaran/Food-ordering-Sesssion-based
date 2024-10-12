@@ -1,8 +1,9 @@
 const express = require('express');
+const verifyToken = require('../UTILS/verifyToken');
 const webhookController = require('../CONTROLLER/webhookController');
 
 const router = express.Router();
 router.route('/')
-    .post(webhookController.webhook);
+    .post(verifyToken, webhookController.webhook);
 
 module.exports = router

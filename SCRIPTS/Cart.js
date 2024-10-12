@@ -1,8 +1,11 @@
 window.onload = async () => {
     let orderbtn = document.getElementById('nopay');
+
     try {
     let cartItemsDiv = document.getElementById('food_container');
-    const response = await fetch('/getcartitems');
+    const response = await fetch('/getcartitems',{
+        credentials: 'include'
+    });
     if (!response.ok) {
         throw new Error('Failed to fetch cart items');
     }
@@ -52,6 +55,7 @@ async function sendOrderUpdateRequest() {
     try {
         const response = await fetch('/updateorder', {
             method: "POST",
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -84,6 +88,7 @@ orderbtn.addEventListener('click', async () => {
 
         const response = await fetch('/create-order', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
