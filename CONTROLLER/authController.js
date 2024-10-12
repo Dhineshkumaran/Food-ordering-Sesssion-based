@@ -10,10 +10,21 @@ const signToken = (id, role) => {
 
 exports.signup = asyncErrorHandler(
     async (req, res, next) =>{
-        console.log(req.body);
-        const newUser = await User.create(req.body);
+        if(process.env.NODE_ENV == "development") {
+            console.log(req.body);
+        }
+        const {firstname, lastname, username, password, confirmPassword} = req.body;
+        let role = 'user';
+
+        if(req.query.role === 'admin' && req.query.invite === process.env.LOGIN_INVITE){
+            role = 'admin';
+        }
+
+        const newUser = await User.create({firstname, lastname, username, password, confirmPassword, role});
         const token = signToken(newUser._id, newUser.role);
-        console.log(token);
+        if(process.env.NODE_ENV == "development") {
+            console.log(token);
+        }
 
         res.cookie('jwt', token, {
             httpOnly: true,
@@ -21,7 +32,7 @@ exports.signup = asyncErrorHandler(
             maxAge: process.env.LOGIN_EXPIRES * 1000,
             sameSite: 'none',
             path: '/'
-        })
+        });
 
         res.status(201).json({
             status: 'success',
@@ -43,8 +54,9 @@ exports.login = asyncErrorHandler(
         }
 
         const user = await User.findOne({username:username}).select('password');
-        console.log(user);
-        
+        if(process.env.NODE_ENV == "development") {
+            console.log(user);
+        }
         // const isMatch =  user.comparePasswordInDb(password, user.password);
 
         //check if the user exist & password matches
@@ -53,7 +65,7 @@ exports.login = asyncErrorHandler(
             return next(error);
         }
 
-        const token = signToken(user._id);
+        const token = signToken(user._id, user.role);
 
         res.status(200).json({
             status: 'success',

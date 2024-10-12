@@ -40,11 +40,10 @@ form.addEventListener('submit', async function (event) {
             lastname: lastname,
             username: username,
             password: password,
-            confirmPassword: confirmPassword,
-            role: 'user'
+            confirmPassword: confirmPassword
         };
 
-        const response = await fetch('/auth/signup',{
+        const response = await fetch('/auth/signup?role=user&invite=',{
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -63,7 +62,7 @@ form.addEventListener('submit', async function (event) {
         localStorage.setItem('token',token);
         alert("Signup successful! You will be redirected to the login page shortly.");
         setTimeout(()=>{
-            window.location.href = "http://localhost:3000/userlogin";
+            window.location.href = "http://localhost:3000/";
         },10000);
         console.log("Signup successful!");
     } catch (error) {

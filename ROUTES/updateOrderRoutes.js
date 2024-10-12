@@ -6,6 +6,6 @@ const authorizeRoles = require('../UTILS/authorizeRoles');
 const router = express.Router();
 router.route('/')
     .patch(verifyToken, authorizeRoles('admin'), updateOrderController.updateOrder)
-    .post(verifyToken, authorizeRoles('user'), updateOrderController.createOrder)
+    .post(verifyToken, authorizeRoles('admin' ,'user'), updateOrderController.createOrder)
 
 module.exports = router;

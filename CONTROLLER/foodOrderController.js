@@ -14,7 +14,7 @@ exports.addToCart = asyncErrorHandler(
     async (req, res) => {
         const CartFood = require('../SCHEMAS/cartSchema');
         const { name, imageURL, price } = req.body;
-        let quantity = await CartFood.countDocuments({"name":name});
+        let quantity = await CartFood.countDocuments({'userId': new ObjectId(req.user.id), 'name': name});
         if (quantity==0) {
             const addFoods = new CartFood({'userId': new ObjectId(req.user.id), 'name':name, 'imageURL':imageURL, 'price':price, 'quantity':1});
             await addFoods.save();
@@ -22,7 +22,9 @@ exports.addToCart = asyncErrorHandler(
             await CartFood.updateOne({'name':name}, {$inc:{'quantity':1}});
         }
         let cartItems = await CartFood.find();
-        console.log(cartItems);
+        if(process.env.NODE_ENV == "development") {
+            console.log(cartItems);
+        }
         res.json({ success: true, cartItems });
     }
 );

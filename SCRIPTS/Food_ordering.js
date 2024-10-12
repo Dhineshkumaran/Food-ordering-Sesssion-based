@@ -41,6 +41,18 @@ async function loadFoodItems() {
   }
 }
 
+document.getElementById('sign-out').addEventListener('click', ()=>{
+  fetch('/logout').then((response) => {
+    console.log(response);
+    if(response.ok){
+      window.location.href = "/";
+    }
+  })
+  .catch((error)=>{
+    console.log(error);
+  })
+})
+
 function attachEventListeners() {
   let count = 0;
   let btns = document.querySelectorAll(".btn-dark");

@@ -7,7 +7,6 @@ const cors = require('cors');
 
 const foodOrderRoutes = require('../ROUTES/foodOrderRoutes');
 const addtocartRoutes = require('../ROUTES/addtocartRoutes');
-const adminloginRoutes = require('../ROUTES/adminloginRoutes');
 const orderRoutes = require('../ROUTES/orderRoutes')
 const cartRoutes = require('../ROUTES/cartRoutes');
 const displayOrderRoutes = require('../ROUTES/orderRoutes');
@@ -20,6 +19,7 @@ const getfooditemsRoutes = require('../ROUTES/getfooditemRoutes');
 const paymentRoutes = require('../ROUTES/paymentRoutes');
 const webhookRoutes = require('../ROUTES/webhookRoutes');
 const authRouter = require('../ROUTES/authRouter');
+const logout = require('../UTILS/logout');
 
 const CustomError = require('../UTILS/customError');
 const globalErrorHandler = require('../CONTROLLER/globalErrorHandler');
@@ -57,11 +57,9 @@ async function main() {
     }
 }
 
-app.use('/', foodOrderRoutes);
+app.use('/home', foodOrderRoutes);
 
 app.use('/add-to-cart',addtocartRoutes);
-
-app.use('/adminlogin',adminloginRoutes);
 
 app.use('/cart',cartRoutes);
 
@@ -75,7 +73,7 @@ app.use('/signup',signupRoutes);
 
 app.use('/updateorder',updateOrderRoutes);
 
-app.use('/userlogin',userloginRoutes);
+app.use('/',userloginRoutes);
 
 app.use('/getcartitems',getcartitemRoutes);
 
@@ -86,6 +84,8 @@ app.use('/create-order',paymentRoutes);
 app.use('/webhook',webhookRoutes);
 
 app.use('/auth', authRouter);
+
+app.use('/logout', logout);
 
 app.all('*', (req, res, next)=>{
     const err = new CustomError(`Can't find the ${req.originalUrl} on the server!`, 404);
