@@ -1,7 +1,7 @@
 module.exports = (req, res) => {
     res.cookie('jwt', '', {
         httpOnly: true,
-        expires: new Date(0),  // Set the cookie expiration to the past
+        expires: new Date(0),
         path: '/',
     });
     

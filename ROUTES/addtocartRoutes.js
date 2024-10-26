@@ -1,10 +1,9 @@
 const express = require('express');
 const addtocartController = require('../CONTROLLER/foodOrderController');
-const verifyToken = require('../UTILS/verifyToken');
-const authorizeRoles = require('../UTILS/authorizeRoles');
+const authorizeSession = require('../UTILS/authorizeSession');
 
 const router = express.Router();
 router.route('/')
-    .post(verifyToken, authorizeRoles('admin','user'), addtocartController.addToCart)
+    .post(authorizeSession, addtocartController.addToCart)
 
 module.exports = router;

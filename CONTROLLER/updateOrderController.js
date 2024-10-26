@@ -1,6 +1,7 @@
 const asyncErrorHandler = require('../UTILS/asyncErrorHandler');
 const customError = require('../UTILS/customError');
 const Order = require('../SCHEMAS/ordersSchema');
+const {ObjectId} = require('mongodb');
 
 exports.updateOrder = asyncErrorHandler(
     async (req, res, next) => {
@@ -28,7 +29,7 @@ exports.createOrder = asyncErrorHandler(
         const orderNo = highestOrder ? highestOrder.orderNo + 1 : 1;
 
         const newOrder = new Order({
-            "_id": req.user.id,
+            "orderId": req.sessionID,
             "orderNo": orderNo,
             "foodItems": data,
             "status": "NOT PAID"

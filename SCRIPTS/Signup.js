@@ -57,9 +57,9 @@ form.addEventListener('submit', async function (event) {
         }
 
         const data = await response.json();
-        const token = data.token;
-        console.log(token);
-        localStorage.setItem('token',token);
+        // const token = data.token;
+        // console.log(token);
+        // localStorage.setItem('token',token);
         alert("Signup successful! You will be redirected to the login page shortly.");
         setTimeout(()=>{
             window.location.href = "http://localhost:3000/userlogin";

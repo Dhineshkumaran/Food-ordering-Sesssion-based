@@ -14,9 +14,9 @@ exports.addToCart = asyncErrorHandler(
     async (req, res) => {
         const CartFood = require('../SCHEMAS/cartSchema');
         const { name, imageURL, price } = req.body;
-        let quantity = await CartFood.countDocuments({'userId': new ObjectId(req.user.id), 'name': name});
+        let quantity = await CartFood.countDocuments({'userId': req.sessionID, 'name': name});
         if (quantity==0) {
-            const addFoods = new CartFood({'userId': new ObjectId(req.user.id), 'name':name, 'imageURL':imageURL, 'price':price, 'quantity':1});
+            const addFoods = new CartFood({'userId': req.sessionID, 'name':name, 'imageURL':imageURL, 'price':price, 'quantity':1});
             await addFoods.save();
         } else {
             await CartFood.updateOne({'name':name}, {$inc:{'quantity':1}});
