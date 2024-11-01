@@ -5,7 +5,14 @@ services:
     build:
       context: .
     environment:
-      NODE_ENV: production
-      MONGO_URI: mongodb+srv://dhineshkumaran2004:zi2ue7crKgwUm2nf@cluster0.ouabet2.mongodb.net/
+      NODE_ENV: development
+      PORT: 3000
+      DB_USER: dhineshkumaran2004
+      DB_PASSWORD: zi2ue7crKgwUm2nf
+      CONN_STR: "mongodb+srv://dhineshkumaran2004:zi2ue7crKgwUm2nf@cluster0.ouabet2.mongodb.net/food_details?retryWrites=true&w=majority&appName=Cluster0"
+      LOCAL_CONN_STR: mongodb://localhost:27017/food_details
+      SECRET_STR: asg7-hnkenf-53jje7-63hdkk-72ggdjjd
+      LOGIN_EXPIRES: "2592000"
+      LOGIN_INVITE: SPECIAL
     ports:
       - "3000:3000"
