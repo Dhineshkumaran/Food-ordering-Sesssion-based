@@ -1,5 +1,5 @@
 const asyncErrorHandler = require('../UTILS/asyncErrorHandler');
-const customError = require('../UTILS/customError');
+const customError = require('../UTILS/CustomError');
 const Order = require('../SCHEMAS/ordersSchema');
 const {ObjectId} = require('mongodb');
 

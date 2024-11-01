@@ -1,6 +1,6 @@
 const User = require('../SCHEMAS/UserSchema');
 const asyncErrorHandler = require('../UTILS/asyncErrorHandler');
-const customError = require('../UTILS/customError');
+const customError = require('../UTILS/CustomError');
 const jwt = require('jsonwebtoken');
 const signToken = (id, role) => {
     return jwt.sign({id: id, role: role}, process.env.SECRET_STR, {

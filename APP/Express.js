@@ -21,7 +21,7 @@ const paymentRoutes = require('../ROUTES/paymentRoutes');
 const webhookRoutes = require('../ROUTES/webhookRoutes');
 const logout = require('../UTILS/logout');
 
-const CustomError = require('../UTILS/customError');
+const CustomError = require('../UTILS/CustomError');
 const globalErrorHandler = require('../CONTROLLER/globalErrorHandler');
 
 const app = express();

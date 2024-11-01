@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const jwt = require('jsonwebtoken');
-const customError = require('../UTILS/customError');
+const customError = require('../UTILS/CustomError');
 const User = require('../SCHEMAS/UserSchema');
 
 module.exports = async (req, res, next) => {
