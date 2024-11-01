@@ -5,7 +5,7 @@ window.onload = () => {
 async function loadFoodItems() {
   let dynamic = document.getElementById('dynamic');
   try {
-    const response = await fetch('/getfooditems',{
+    const response = await fetch('http://3.105.226.162:3000/getfooditems',{
       credentials: 'include'
     });
     const items = await response.json();
@@ -82,7 +82,7 @@ function attachEventListeners() {
       }
 
       try {
-        const response = await fetch('/add-to-cart', {
+        const response = await fetch('http://3.105.226.162:3000/add-to-cart', {
           method: 'POST',
           credentials: 'include',
           headers: { 

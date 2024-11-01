@@ -43,7 +43,7 @@ form.addEventListener('submit', async function (event) {
             confirmPassword: confirmPassword
         };
 
-        const response = await fetch('/auth/signup?role=user&invite=',{
+        const response = await fetch('http://3.105.226.162:3000/auth/signup?role=user&invite=',{
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -57,12 +57,9 @@ form.addEventListener('submit', async function (event) {
         }
 
         const data = await response.json();
-        // const token = data.token;
-        // console.log(token);
-        // localStorage.setItem('token',token);
         alert("Signup successful! You will be redirected to the login page shortly.");
         setTimeout(()=>{
-            window.location.href = "http://localhost:3000/userlogin";
+            window.location.href = "http://3.105.226.162:3000/userlogin";
         },10000);
         console.log("Signup successful!");
     } catch (error) {
