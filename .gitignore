@@ -1,0 +1,37 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variable files
+config.env
+
+# Docker files
+.dockerignore
+Dockerfile*
+docker-compose*
+compose.y*ml
+
+# Logs
+npm-debug.log*
+
+# Build and distribution folders
+dist/
+build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE and editor-specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# License and Readme (optional based on your needs)
+LICENSE
+README.md
+
+# Optional - Ignore sensitive configuration files
+# .env
