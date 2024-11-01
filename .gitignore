@@ -4,12 +4,6 @@ node_modules/
 # Environment variable files
 config.env
 
-# Docker files
-.dockerignore
-Dockerfile*
-docker-compose*
-compose.y*ml
-
 # Logs
 npm-debug.log*
 

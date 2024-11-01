@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb+srv://dhineshkumaran2004:zi2ue7crKgwUm2nf@cluster0.ouabet2.mongodb.net/
+    ports:
+      - "3000:3000"
