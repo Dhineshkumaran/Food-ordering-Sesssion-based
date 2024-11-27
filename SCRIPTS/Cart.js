@@ -3,7 +3,7 @@ window.onload = async () => {
 
     try {
     let cartItemsDiv = document.getElementById('food_container');
-    const response = await fetch('http://3.105.226.162:3000/getcartitems',{
+    const response = await fetch('http://localhost:3000/getcartitems',{
         credentials: 'include'
     });
     if (!response.ok) {
@@ -53,7 +53,7 @@ async function sendOrderUpdateRequest() {
         order.push(newFoodItem);
     });
     try {
-        const response = await fetch('http://3.105.226.162:3000/updateorder', {
+        const response = await fetch('http://localhost:3000/updateorder', {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -86,7 +86,7 @@ orderbtn.addEventListener('click', async () => {
             total_cost+=parseInt(div.querySelector('p').innerText) * div.querySelector('input').value;
         })
 
-        const response = await fetch('http://3.105.226.162:3000/create-order', {
+        const response = await fetch('http://localhost:3000/create-order', {
             method: 'POST',
             credentials: 'include',
             headers: {

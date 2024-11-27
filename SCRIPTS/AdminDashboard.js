@@ -1,6 +1,6 @@
 window.onload = async () => {
     try {
-        const response = await fetch('http://3.105.226.162:3000/getorder',{
+        const response = await fetch('http://localhost:3000/getorder',{
             credentials: 'include'
         });
         if (!response.ok) {
@@ -31,7 +31,7 @@ window.onload = async () => {
             btn.addEventListener('click', async ()=>{
                 let id = btn.getAttribute('data-id');
                 console.log(id);
-                const response = await fetch(`http://3.105.226.162:3000/getorder?id=${id}`,{
+                const response = await fetch(`http://localhost:3000/getorder?id=${id}`,{
                     credentials: 'include'
                 });
                 if(!response.ok) {
@@ -105,7 +105,7 @@ window.onload = async () => {
                 btn.innerText = "Paid";
                 btn.disabled = true;
                 const id = btn.getAttribute('data-id');
-                const response = await fetch(`http://3.105.226.162:3000/updateorder?id=${id}`, {
+                const response = await fetch(`http://localhost:3000/updateorder?id=${id}`, {
                     method: "PATCH",
                     credentials: 'include',
                     headers: {

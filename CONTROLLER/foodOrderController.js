@@ -1,5 +1,6 @@
 const asyncErrorHandler = require('../UTILS/asyncErrorHandler');
 const {ObjectId} = require('mongodb');
+const customError = require('../UTILS/CustomError');
 
 exports.foodOrder = asyncErrorHandler(
     async (req, res) => {
@@ -11,9 +12,13 @@ exports.foodOrder = asyncErrorHandler(
 );
 
 exports.addToCart = asyncErrorHandler(
-    async (req, res) => {
+    async (req, res, next) => {
         const CartFood = require('../SCHEMAS/cartSchema');
         const { name, imageURL, price } = req.body;
+        if(!name || !imageURL || !price){
+            const error = new customError('All fields are required while adding to cart. ', 400);
+            return next(error);
+        }
         let quantity = await CartFood.countDocuments({'userId': req.sessionID, 'name': name});
         if (quantity==0) {
             const addFoods = new CartFood({'userId': req.sessionID, 'name':name, 'imageURL':imageURL, 'price':price, 'quantity':1});
@@ -25,6 +30,6 @@ exports.addToCart = asyncErrorHandler(
         if(process.env.NODE_ENV == "development") {
             console.log(cartItems);
         }
-        res.json({ success: true, cartItems });
+        res.json({ success: true, message:"Item added to cart" });
     }
 );

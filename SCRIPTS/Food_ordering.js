@@ -5,7 +5,7 @@ window.onload = () => {
 async function loadFoodItems() {
   let dynamic = document.getElementById('dynamic');
   try {
-    const response = await fetch('http://3.105.226.162:3000/getfooditems',{
+    const response = await fetch('http://localhost:3000/getfooditems',{
       credentials: 'include'
     });
     const items = await response.json();
@@ -22,7 +22,7 @@ async function loadFoodItems() {
               <div class="card-body">
                   <h5 class="card-title">${item.name}</h5>
                   <p class="card-text">${item.description}</p>
-                  <p class="card-price">Price: $${item.price}</p>
+                  <p class="card-price">Price: ₹${item.price}</p>
                   <div class="btn btn-dark">Add to cart</div>
               </div>
           </div>
@@ -82,7 +82,7 @@ function attachEventListeners() {
       }
 
       try {
-        const response = await fetch('http://3.105.226.162:3000/add-to-cart', {
+        const response = await fetch('http://localhost:3000/add-to-cart', {
           method: 'POST',
           credentials: 'include',
           headers: { 

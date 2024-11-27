@@ -21,18 +21,10 @@ exports.signup = asyncErrorHandler(
         }
 
         const newUser = await User.create({firstname, lastname, username, password, confirmPassword, role});
-        const token = signToken(newUser._id, newUser.role);
+
         if(process.env.NODE_ENV == "development") {
             console.log(token);
         }
-
-        var currentDate = new Date();
-
-        res.cookie('jwt', token, {
-            httpOnly: true,
-            expires: new Date(currentDate.getTime() + (30 * 24 * 60 * 60 * 1000)),
-            path: '/'
-        });
 
         res.status(201).json({
             status: 'success',
@@ -40,6 +32,15 @@ exports.signup = asyncErrorHandler(
                 user: newUser
             }
         });
+    }
+);
+
+exports.loginpage = asyncErrorHandler(
+    async (req, res) => {
+        const path = require('path');
+        const fp = path.resolve('HTML','Login.html');
+        res.setHeader('Content-Type','text/html')
+        res.status(200).sendFile(fp);
     }
 );
 
@@ -67,7 +68,13 @@ exports.login = asyncErrorHandler(
 
         const token = signToken(user._id, user.role);
 
-        res.status(200).json({
+        var currentDate = new Date();
+
+        res.cookie('jwt', token, {
+            httpOnly: true,
+            expires: new Date(currentDate.getTime() + (30 * 24 * 60 * 60 * 1000)),
+            path: '/'
+        }).status(200).json({
             status: 'success',
             token: token
         });

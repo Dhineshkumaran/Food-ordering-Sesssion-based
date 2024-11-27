@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Menu</title>
+    <link rel="stylesheet" href="Cart.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body style="background-color: #efeae3;">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <h2 style="font-family: Georgia, 'Times New Roman', Times, serif; color: white;">Dashboard</h2>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color: white;"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth" style="color: white;">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout" style="color: white;">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/order" style="color: white;">Manage Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu" style="color: white;">Manage Menu</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="Menu">
+        <div class="container" style="text-align: center;">
+            <div class="pt-3">
+                <h1 class="pt-5" style="color: rgb(84, 82, 80);">Menu</h1>
+            </div>
+            <!--Dynamic contents-->
+            <div id="dynamic"></div>
+
+            <!-- Add Item Form -->
+            <div class="mt-5">
+                <h3>Add New Item</h3>
+                <form id="addItemForm">
+                    <div class="mb-3">
+                        <input type="text" id="name" class="form-control" placeholder="Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="url" id="imageURL" class="form-control" placeholder="Image URL" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea id="description" class="form-control" placeholder="Description" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" id="price" class="form-control" placeholder="Price" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            loadFoodItems();
+        };
+
+        async function loadFoodItems() {
+            let dynamic = document.getElementById('dynamic');
+            try {
+                const response = await fetch('http://localhost:3000/getfooditems', { credentials: 'include' });
+                const items = await response.json();
+                let mainreplaceHtml = '';
+                items.forEach((item, index) => {
+                    if (index % 4 === 0) {
+                        mainreplaceHtml += '<div class="row pt-3">';
+                    }
+
+                    mainreplaceHtml += `
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <img class="card-img-top" src="${item.imageURL}" style="height: 180px;" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.name}</h5>
+                                <p class="card-text">${item.description}</p>
+                                <p class="card-price">Price: ₹${item.price}</p>
+                                <button class="btn btn-danger delete-item" data-id="${item._id}">Delete</button>
+                            </div>
+                        </div>
+                    </div>`;
+
+                    if ((index + 1) % 4 === 0 || index === items.length - 1) {
+                        mainreplaceHtml += '</div>';
+                    }
+                });
+                dynamic.innerHTML = mainreplaceHtml;
+
+                attachEventListeners();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        function attachEventListeners() {
+            const deleteButtons = document.querySelectorAll('.delete-item');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    const foodId = e.target.getAttribute('data-id');
+                    try {
+                        const response = await fetch(`http://localhost:3000/menu/${foodId}`, {
+                            method: 'DELETE'
+                        });
+                        if (response.ok) {
+                            alert('Item deleted successfully!');
+                            loadFoodItems();
+                        } else {
+                            alert('Failed to delete item');
+                        }
+                    } catch (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        }
+
+        document.getElementById('addItemForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newItem = {
+                name: document.getElementById('name').value,
+                imageURL: document.getElementById('imageURL').value,
+                description: document.getElementById('description').value,
+                price: parseInt(document.getElementById('price').value, 10)
+            };
+            try {
+                const response = await fetch('http://localhost:3000/menu', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newItem)
+                });
+                if (response.ok) {
+                    alert('Item added successfully!');
+                    loadFoodItems();
+                } else {
+                    alert('Failed to add item');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    </script>
+</body>
+
+</html>

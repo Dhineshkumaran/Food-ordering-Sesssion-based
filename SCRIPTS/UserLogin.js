@@ -4,7 +4,7 @@ document.getElementById("loginForm").addEventListener('submit', async function(e
     let password = document.getElementById("password").value;
     
     try {
-        const response = await fetch('http://3.105.226.162:3000/auth/login', {
+        const response = await fetch('http://localhost:3000/auth/login', {
             method: "POST",
             credentials: 'include',
             headers: {
@@ -17,7 +17,7 @@ document.getElementById("loginForm").addEventListener('submit', async function(e
         });
         
         if (response.ok) {
-            window.location.href = 'http://3.105.226.162:3000/home';
+            window.location.href = 'http://localhost:3000/order';
         } else {
             alert("Invalid username or password. Please try again.");
         }

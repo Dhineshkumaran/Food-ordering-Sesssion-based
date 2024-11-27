@@ -15,6 +15,7 @@ const cartRoutes = require('../ROUTES/cartRoutes');
 const displayOrderRoutes = require('../ROUTES/orderRoutes');
 const getOrderRoutes = require('../ROUTES/getorderRoutes');
 const updateOrderRoutes = require('../ROUTES/updateOrderRoutes');
+const menuRoutes = require('../ROUTES/menuRoutes');
 const getcartitemRoutes = require('../ROUTES/getcartitemRoutes');
 const getfooditemsRoutes = require('../ROUTES/getfooditemRoutes');
 const paymentRoutes = require('../ROUTES/paymentRoutes');
@@ -33,7 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://3.105.226.162:3000'],
+    origin: ['http://localhost:3000'],
     credentials: true,
     methods: 'GET,POST,PUT,DELETE,OPTIONS',
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
@@ -85,6 +86,8 @@ app.use('/cart',cartRoutes);
 app.use('/getorder', getOrderRoutes);
 
 app.use('/order',orderRoutes);
+
+app.use('/menu', menuRoutes);
 
 app.use('/order',displayOrderRoutes);
 
